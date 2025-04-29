@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+
 import { StarFilled } from "@ant-design/icons";
 import BreadcrumbHeader from "../components/breadcumb";
 import { useGetProductByIdQuery } from "../../api/getProductById";
@@ -112,7 +113,6 @@ const ProductDetails = () => {
         </div>
       </div>
 
-      {/* Reviews */}
       <div className="pt-8">
         <h2 className="text-xl font-semibold mb-4">Customer Reviews</h2>
         <div className="space-y-4">

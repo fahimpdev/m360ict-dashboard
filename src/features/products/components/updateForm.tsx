@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, message, Spin, Divider } from "antd";
+
 import ProductInput from "./productInput";
 import ReviewInput from "./reviewInput";
 import AdditionInput from "./additionalInput";
@@ -16,7 +17,7 @@ const ProductUpdateForm: React.FC<ProductUpdateFormProps> = ({
   const [form] = Form.useForm();
   const [categories, setCategories] = useState<
     { slug: string; name: string; url: string }[]
-  >([]); // Categories are now an array of objects
+  >([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
@@ -83,7 +84,7 @@ const ProductUpdateForm: React.FC<ProductUpdateFormProps> = ({
       const result = await response.json();
       console.log("PATCH Response:", result);
       message.success("Product updated successfully!");
-      onSubmit(values); // Optional: only call if needed
+      onSubmit(values);
     } catch (error) {
       console.error("Failed to update product:", error);
       message.error("Failed to update product");
@@ -100,7 +101,6 @@ const ProductUpdateForm: React.FC<ProductUpdateFormProps> = ({
       onFinish={handleFinish}
       className="space-y-10"
     >
-      {/* Pass categories array */}
       <ProductInput categories={categories} form={form} />
       <Divider />
       <ReviewInput form={form} />

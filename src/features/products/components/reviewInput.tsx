@@ -1,8 +1,8 @@
-// ReviewForm.tsx
 import React from "react";
 import { Form, Input, Button } from "antd";
-import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import { FormInstance } from "antd/es/form";
+import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
+
 import SideBar from "./sidebar";
 
 interface ReviewFormProps {

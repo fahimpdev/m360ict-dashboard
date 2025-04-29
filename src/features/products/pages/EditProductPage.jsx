@@ -1,8 +1,9 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+
 import EditPage from "./editPage";
-import { useGetProductByIdQuery } from "../../api/getProductById";
 import UpdateForm from "../components/updateForm";
+import { useGetProductByIdQuery } from "../../api/getProductById";
 import { useUpdateProductMutation } from "../../api/updateProductApi";
 
 export default function EditProductPage() {
@@ -12,7 +13,6 @@ export default function EditProductPage() {
 
   if (isLoading) return <p>Loading...</p>;
 
-  //update functionality
   const handleUpdate = async (values) => {
     console.log("Form Values to Submit:", values);
 

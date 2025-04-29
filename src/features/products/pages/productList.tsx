@@ -1,20 +1,19 @@
 import React, { useState } from "react";
-import { Table, Button, Tooltip } from "antd";
 import { ColumnsType } from "antd/es/table";
-import { Product } from "../../../types/product"; // Make sure the type is correct
-import { useNavigate } from "react-router-dom";
-import { useGetProductsQuery } from "../../api/getProduct"; // Import the RTK query hook
-import BreadcrumbHeader from "../components/breadcumb";
+import { Table, Button, Tooltip } from "antd";
 import { EyeOutlined, EditOutlined } from "@ant-design/icons";
+
+import { useNavigate } from "react-router-dom";
+import { Product } from "../../../types/product";
+import BreadcrumbHeader from "../components/breadcumb";
+import { useGetProductsQuery } from "../../api/getProduct";
 
 const ProductList: React.FC = () => {
   const navigate = useNavigate();
 
-  // State for pagination
   const [page, setPage] = useState<number>(1);
   const limit = 10;
 
-  // Use RTK Query hook to fetch products with pagination
   const { data, isLoading } = useGetProductsQuery({
     limit: limit,
     skip: (page - 1) * limit,
@@ -25,7 +24,6 @@ const ProductList: React.FC = () => {
     breadcrumb: [{ name: "Products", href: "/" }, { name: "List" }],
   };
 
-  // Columns definition for the Table
   const columns: ColumnsType<Product> = [
     {
       title: "Thumbnail",
@@ -45,7 +43,7 @@ const ProductList: React.FC = () => {
       title: "Title",
       dataIndex: "title",
       key: "title",
-      width: 500,
+      width: 200,
     },
     {
       title: "Price",

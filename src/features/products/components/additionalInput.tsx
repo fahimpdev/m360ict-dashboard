@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Input } from "antd";
 import { FormInstance } from "antd/es/form";
+
 import SideBar from "./sidebar";
 
 interface ProductFormProps {

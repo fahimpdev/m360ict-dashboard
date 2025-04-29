@@ -4,24 +4,18 @@ import { Link } from "react-router-dom";
 
 const { Title } = Typography;
 
-// 1. Define the breadcrumb item type
 type BreadcrumbItem = {
   name: string;
   href?: string;
 };
-
-// 2. Define the pageHeader type
 interface PageHeaderType {
   title?: string;
   breadcrumb?: BreadcrumbItem[];
 }
 
-// 3. Define the props type
 interface BreadcrumbHeaderProps {
   pageHeader: PageHeaderType;
 }
-
-// 4. Write the component with types
 const BreadcrumbHeader: React.FC<BreadcrumbHeaderProps> = ({ pageHeader }) => {
   const { title, breadcrumb } = pageHeader || {};
 
