@@ -23,10 +23,9 @@ export default function EditProductPage() {
     <EditPage
       title="Edit Product"
       breadcrumb={[
-        { href: "/products", name: "Products" },
+        { href: "/", name: "Products" },
         { href: `/product/${id}/edit`, name: "Edit" },
       ]}
-      backUrl="/products"
     >
       {product ? (
         <UpdateForm product={product} onSubmit={handleUpdate} />

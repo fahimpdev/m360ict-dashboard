@@ -22,7 +22,7 @@ const ProductList: React.FC = () => {
 
   const pageHeader = {
     title: "Products",
-    breadcrumb: [{ name: "products" }, { name: "List" }],
+    breadcrumb: [{ name: "Products", href: "/" }, { name: "List" }],
   };
 
   // Columns definition for the Table
