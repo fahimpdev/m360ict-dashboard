@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Table, Button, Tooltip } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { Product } from "../../../types/product"; // Make sure the type is correct
