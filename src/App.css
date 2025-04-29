@@ -36,3 +36,26 @@
     transform: rotate(360deg);
   }
 }
+
+.border-inline-end {
+  border: none;
+}
+
+/* Optional: Add transition to the sidebar */
+.transition-transform {
+  transition: transform 0.3s ease;
+}
+
+/* Optional: Make sure sidebar stays on top with higher z-index */
+.z-50 {
+  z-index: 50;
+}
+
+/* Optional: Add styles for the overlay */
+.bg-black {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.fixed {
+  position: fixed;
+}
