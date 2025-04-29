@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import EditPage from "./editPage";
 import { useGetProductByIdQuery } from "../../api/getProduct";
-import ProductForm from "../components/productForm";
+import UpdateForm from "../components/updateForm";
 
 export default function EditProductPage() {
   const { id } = useParams();
@@ -29,7 +29,7 @@ export default function EditProductPage() {
       backUrl="/products"
     >
       {product ? (
-        <ProductForm product={product} onSubmit={handleUpdate} />
+        <UpdateForm product={product} onSubmit={handleUpdate} />
       ) : (
         <p>Product not found.</p>
       )}
