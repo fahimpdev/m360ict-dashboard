@@ -45,26 +45,31 @@ const ProductList: React.FC = () => {
       title: "Title",
       dataIndex: "title",
       key: "title",
+      width: 200,
     },
     {
       title: "Price",
       dataIndex: "price",
       key: "price",
+      width: 100,
       render: (price: number) => `$${price}`,
     },
     {
       title: "Brand",
       dataIndex: "brand",
       key: "brand",
+      width: 150,
     },
     {
       title: "Category",
       dataIndex: "category",
       key: "category",
+      width: 105,
     },
     {
       title: "Action",
       key: "action",
+      width: 100,
       render: (_: any, record: Product) => (
         <div className="flex items-center gap-2">
           {/* View Button */}
