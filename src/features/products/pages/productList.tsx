@@ -45,7 +45,7 @@ const ProductList: React.FC = () => {
       title: "Title",
       dataIndex: "title",
       key: "title",
-      width: 200,
+      width: 500,
     },
     {
       title: "Price",
