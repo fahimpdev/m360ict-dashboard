@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Form, Button, message, Spin, Divider } from "antd";
-
+import React, { useEffect, useState } from "react";
+import { Form, Button, Spin, Divider } from "antd";
 import ProductInput from "./productInput";
 import ReviewInput from "./reviewInput";
 import AdditionInput from "./additionalInput";
+
+import { useGetCategoriesQuery } from "../../api/getCategories";
+import { toast } from "react-toastify";
 
 interface ProductUpdateFormProps {
   product?: any;
@@ -15,34 +17,10 @@ const ProductUpdateForm: React.FC<ProductUpdateFormProps> = ({
   onSubmit,
 }) => {
   const [form] = Form.useForm();
-  const [categories, setCategories] = useState<
-    { slug: string; name: string; url: string }[]
-  >([]);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState(false); // Loading for the button
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch(
-          "https://dummyjson.com/products/categories"
-        );
-        const data = await response.json();
-        if (Array.isArray(data)) {
-          setCategories(data); // Set categories as an array of objects
-        } else {
-          setError("Invalid response format");
-        }
-      } catch (err) {
-        setError("Failed to fetch categories");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCategories();
-  }, []);
+  const { data, isLoading, error } = useGetCategoriesQuery();
+  const categories: any[] = data || [];
 
   useEffect(() => {
     if (product) {
@@ -63,11 +41,11 @@ const ProductUpdateForm: React.FC<ProductUpdateFormProps> = ({
 
   const handleFinish = async (values: any) => {
     if (!product?.id) {
-      message.error("Product ID is missing!");
+      toast.error("Product ID is missing!");
       return;
     }
 
-    console.log("Final Edited Product:", values);
+    setLoading(true);
 
     try {
       const response = await fetch(
@@ -81,18 +59,26 @@ const ProductUpdateForm: React.FC<ProductUpdateFormProps> = ({
         }
       );
 
-      const result = await response.json();
-      console.log("PATCH Response:", result);
-      message.success("Product updated successfully!");
+      if (!response.ok) {
+        throw new Error("API returned an error");
+      }
+
+      toast.success("Product updated successfully!", {
+        position: "top-center",
+        autoClose: 500,
+      });
       onSubmit(values);
     } catch (error) {
       console.error("Failed to update product:", error);
-      message.error("Failed to update product");
+      toast.error("Failed to update product");
+    } finally {
+      setLoading(false);
     }
   };
 
-  if (loading) return <Spin tip="Loading categories..." />;
-  if (error) return <div className="text-red-500">{error}</div>;
+  if (isLoading) return <Spin tip="Loading categories..." />;
+  if (error)
+    return <div className="text-red-500">Failed to fetch categories</div>;
 
   return (
     <Form
@@ -109,8 +95,13 @@ const ProductUpdateForm: React.FC<ProductUpdateFormProps> = ({
 
       <Form.Item>
         <div className="flex justify-end">
-          <Button type="primary" htmlType="submit">
-            Update Product
+          <Button
+            type="primary"
+            htmlType="submit"
+            loading={loading}
+            disabled={loading}
+          >
+            {loading ? "Updating..." : "Update"}
           </Button>
         </div>
       </Form.Item>

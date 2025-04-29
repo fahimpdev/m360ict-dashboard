@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-
 import { StarFilled } from "@ant-design/icons";
+
 import BreadcrumbHeader from "../components/breadcumb";
 import { useGetProductByIdQuery } from "../../api/getProductById";
 
