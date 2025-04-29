@@ -63,7 +63,7 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ form }) => {
                 </div>
               ))}
 
-              <Form.Item>
+              <Form.Item className=" flex justify-end">
                 <Button
                   type="dashed"
                   onClick={() => add()}

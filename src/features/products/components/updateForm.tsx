@@ -54,13 +54,40 @@ const ProductUpdateForm: React.FC<ProductUpdateFormProps> = ({
         reviews: product.reviews || [],
         brand: product.brand,
         warrantyInformation: product.warrantyInformation,
+        shippingInformation: product.shippingInformation,
+        returnPolicy: product.returnPolicy,
       });
     }
   }, [product, form]);
 
-  const handleFinish = (values: any) => {
-    onSubmit(values);
-    message.success("Product saved successfully!");
+  const handleFinish = async (values: any) => {
+    if (!product?.id) {
+      message.error("Product ID is missing!");
+      return;
+    }
+
+    console.log("Final Edited Product:", values);
+
+    try {
+      const response = await fetch(
+        `https://dummyjson.com/products/${product.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        }
+      );
+
+      const result = await response.json();
+      console.log("PATCH Response:", result);
+      message.success("Product updated successfully!");
+      onSubmit(values); // Optional: only call if needed
+    } catch (error) {
+      console.error("Failed to update product:", error);
+      message.error("Failed to update product");
+    }
   };
 
   if (loading) return <Spin tip="Loading categories..." />;

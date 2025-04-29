@@ -1,13 +1,11 @@
 import React from "react";
-import { Form, Input, InputNumber, Select } from "antd";
+import { Form, Input, InputNumber } from "antd";
 import { FormInstance } from "antd/es/form";
 import SideBar from "./sidebar";
 
 interface ProductFormProps {
   form: FormInstance;
 }
-
-const { Option } = Select;
 
 const AdditionInput: React.FC<ProductFormProps> = ({ form }) => {
   return (
@@ -19,16 +17,6 @@ const AdditionInput: React.FC<ProductFormProps> = ({ form }) => {
 
       <div className="w-full md:w-3/4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Form.Item
-            label="Warranty Information"
-            name="warrantyInformation"
-            rules={[
-              { required: true, message: "Warranty information is required" },
-            ]}
-          >
-            <Input placeholder="Enter warranty information" />
-          </Form.Item>
-
           <Form.Item
             label="Shipping Information"
             name="shippingInformation"
@@ -48,15 +36,6 @@ const AdditionInput: React.FC<ProductFormProps> = ({ form }) => {
               rows={4}
               placeholder="Enter return policy details"
             />
-          </Form.Item>
-          <Form.Item
-            label="Minimum Order Quantity"
-            name="minimumOrderQuantity"
-            rules={[
-              { required: true, message: "Minimum order quantity is required" },
-            ]}
-          >
-            <InputNumber min={1} placeholder="Enter minimum order quantity" />
           </Form.Item>
         </div>
       </div>
