@@ -13,6 +13,7 @@ const ProductDetails = () => {
 
   return (
     <div style={{ padding: "20px" }}>
+      <p className="text-3xl font-bold underline">hello</p>
       <h1>{product?.title}</h1>
       <img
         src={product?.thumbnail}

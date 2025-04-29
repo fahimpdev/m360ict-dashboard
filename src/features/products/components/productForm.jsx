@@ -1,6 +1,6 @@
 // src/components/ProductForm.tsx
 import React, { useEffect, useState } from "react";
-import { Form, Input, Button, Select, Spin } from "antd";
+import { Form, Input, Button, Select, Spin, Divider, Space } from "antd";
 
 const { Option } = Select;
 
@@ -43,15 +43,18 @@ export default function ProductForm({ product, onSubmit }) {
   useEffect(() => {
     if (product) {
       form.setFieldsValue({
-        name: product.name,
+        name: product.title,
         price: product.price,
         description: product.description,
-        category: product.category, // Also set the category if editing
+        category: product.category,
+        availabilityStatus: product.availabilityStatus,
+        reviews: product.reviews || [],
       });
     }
   }, [product, form]);
 
   const handleFinish = (values) => {
+    console.log("Updated Product Data:", values); // 👈 Add this line
     onSubmit(values);
   };
 
@@ -71,8 +74,8 @@ export default function ProductForm({ product, onSubmit }) {
       className="max-w-xl"
     >
       <Form.Item
-        label="Name"
-        name="name"
+        label="title"
+        name="title"
         rules={[{ required: true, message: "Please input the product name!" }]}
       >
         <Input placeholder="Enter product name" />
@@ -81,6 +84,14 @@ export default function ProductForm({ product, onSubmit }) {
       <Form.Item
         label="Price"
         name="price"
+        rules={[{ required: true, message: "Please input the price!" }]}
+      >
+        <Input placeholder="Enter price" />
+      </Form.Item>
+
+      <Form.Item
+        label="Status"
+        name="availabilityStatus"
         rules={[{ required: true, message: "Please input the price!" }]}
       >
         <Input placeholder="Enter price" />
@@ -104,8 +115,57 @@ export default function ProductForm({ product, onSubmit }) {
         </Select>
       </Form.Item>
 
+      <Divider />
+
+      <Form.List name="reviews">
+        {(fields, { add, remove }) => (
+          <>
+            {fields.map(({ key, name, ...restField }) => (
+              <Space
+                key={key}
+                style={{ display: "flex", marginBottom: 8 }}
+                align="baseline"
+              >
+                <Form.Item
+                  {...restField}
+                  name={[name, "reviewerName"]}
+                  rules={[{ required: true, message: "Reviewer name missing" }]}
+                >
+                  <Input placeholder="Reviewer Name" />
+                </Form.Item>
+
+                <Form.Item
+                  {...restField}
+                  name={[name, "rating"]}
+                  rules={[{ required: true, message: "Rating missing" }]}
+                >
+                  <Input placeholder="Rating" type="number" />
+                </Form.Item>
+
+                <Form.Item
+                  {...restField}
+                  name={[name, "comment"]}
+                  rules={[{ required: true, message: "Comment missing" }]}
+                >
+                  <Input placeholder="Comment" />
+                </Form.Item>
+
+                <Button type="link" danger onClick={() => remove(name)}>
+                  Delete
+                </Button>
+              </Space>
+            ))}
+            <Form.Item>
+              <Button type="dashed" onClick={() => add()} block>
+                Add Review
+              </Button>
+            </Form.Item>
+          </>
+        )}
+      </Form.List>
+
       <Form.Item>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" className="flex">
           {product ? "Update Product" : "Create Product"}
         </Button>
       </Form.Item>
