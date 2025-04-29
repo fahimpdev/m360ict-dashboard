@@ -1,8 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useGetProductByIdQuery } from "../../api/getProduct";
 import { StarFilled } from "@ant-design/icons";
 import BreadcrumbHeader from "../components/breadcumb";
+import { useGetProductByIdQuery } from "../../api/getProductById";
 
 const ProductDetails = () => {
   const pageHeader = {
@@ -21,29 +21,27 @@ const ProductDetails = () => {
     <div className="p-4 md:p-8 space-y-10 max-w-screen-xl mx-auto">
       <BreadcrumbHeader pageHeader={pageHeader} />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div>
-          <img
-            src={product.images?.[0] || product.thumbnail}
-            alt={product.title}
-            className="h-[240px] w-[300px]"
-          />
-          <div className="flex flex-wrap gap-2 text-sm">
-            {product.tags?.map((tag, i) => (
-              <span
-                key={i}
-                className="px-3 py-1 bg-gray-200 text-gray-700 rounded-full"
-              >
-                #{tag}
-              </span>
-            ))}
-          </div>
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8">
+        <img
+          src={product.images?.[0] || product.thumbnail}
+          alt={product.title}
+          className="h-[240px] w-[300px] object-cover rounded-lg"
+        />
 
         <div className="space-y-4">
           <h1 className="text-2xl md:text-3xl font-semibold">
             {product.title}
           </h1>
+          <div className="flex flex-wrap gap-2 mt-2 max-w-[200px]">
+            {product.tags?.map((tag: string, i: number) => (
+              <span
+                key={i}
+                className="px-3 py-1 bg-gray-200 text-gray-700 rounded-full text-sm"
+              >
+                #{tag}
+              </span>
+            ))}
+          </div>
 
           <div className="flex items-center gap-3 text-yellow-500">
             <StarFilled />
@@ -58,7 +56,6 @@ const ProductDetails = () => {
             ${product.price}
           </div>
 
-          {/* Custom Availability Status Badge */}
           <span
             className={`inline-block px-3 py-1 text-sm font-semibold text-white rounded-full ${
               product.availabilityStatus === "Low Stock"
@@ -115,13 +112,11 @@ const ProductDetails = () => {
         </div>
       </div>
 
-      {/* Tags */}
-
       {/* Reviews */}
       <div className="pt-8">
         <h2 className="text-xl font-semibold mb-4">Customer Reviews</h2>
         <div className="space-y-4">
-          {product.reviews?.map((review, idx) => (
+          {product.reviews?.map((review: any, idx: any) => (
             <div
               key={idx}
               className="p-4 border rounded-md bg-gray-50 shadow-sm"

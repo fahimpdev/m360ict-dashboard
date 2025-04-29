@@ -15,7 +15,7 @@ const ProductList: React.FC = () => {
   const limit = 10;
 
   // Use RTK Query hook to fetch products with pagination
-  const { data, error, isLoading } = useGetProductsQuery({
+  const { data, isLoading } = useGetProductsQuery({
     limit: limit,
     skip: (page - 1) * limit,
   });
@@ -94,8 +94,7 @@ const ProductList: React.FC = () => {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Product List</h1>
+    <div>
       <BreadcrumbHeader pageHeader={pageHeader} />
       <Table
         columns={columns}
