@@ -10,7 +10,7 @@ import {
 
 import { store } from "./app/store";
 import DashboardLayout from "./app/layouts/dasdboardLayout";
-import ProductList from "./features/products/pages/productList";
+import ProductList from "./features/products/pages/productPage";
 import ProductDetails from "./features/products/pages/ProductDetails";
 import EditProductPage from "./features/products/pages/EditProductPage";
 import { ToastContainer } from "react-toastify"; // Import ToastContainer
